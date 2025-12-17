@@ -1,0 +1,9 @@
+{
+	"id": "table-size-plugin",
+	"name": "Table Size Plugin",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Allows sizing table columns based on number of dashes in the markdown",
+	"author": "JakisTamNieWiem",
+	"isDesktopOnly": false
+}
