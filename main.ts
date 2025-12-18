@@ -23,9 +23,8 @@ export default class MyPlugin extends Plugin {
 				const lines = section.text.split('\n');
 				for (let i = section.lineStart; i <= section.lineEnd; i++) {
 					const start = lines[i].indexOf('|');
-					const end = lines[i].lastIndexOf('|');
-					if (start === -1 || end === -1 || end <= start) continue;
-					if (/^[ \-\:\|]+$/.test(lines[i].substring(start+1, end)) && !usedLines.contains(i)) {
+					if (start === -1) continue;
+					if (/^\|( *\:*\-+\:* *\|?)+$/.test(lines[i].substring(start).trim()) && !usedLines.contains(i)) {
 						usedLines.push(i);
 						dashLine = lines[i].substring(start);
 						break;
