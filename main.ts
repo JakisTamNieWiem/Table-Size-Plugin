@@ -16,12 +16,15 @@ export default class MyPlugin extends Plugin {
 		this.registerMarkdownPostProcessor(async (element, context) => {
 			const tables = element.findAll('table');
 			const usedLines: number[] = []
+			const file = this.app.workspace.getActiveFile();
+			if (!file) {console.error("Can't get active file"); return;}
 			for (let table of tables) {
 				const section = context.getSectionInfo(table);
 				if (!section) continue;
 				let dashLine = null
-				const lines = section.text.split('\n');
+				const lines = (await file.vault.read(file)).split('\n');
 				for (let i = section.lineStart; i <= section.lineEnd; i++) {
+					if (lines[i] === undefined) continue;
 					const start = lines[i].indexOf('|');
 					if (start === -1) continue;
 					if (/^\|( *\:*\-+\:* *\|?)+$/.test(lines[i].substring(start).trim()) && !usedLines.contains(i)) {
